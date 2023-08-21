@@ -1,9 +1,10 @@
 package com.example.demo.Model;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "user")
+@Table(name = "_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,6 +12,7 @@ public class User {
     private String username;
     private String login;
     private String password;
+    @Nullable
     private byte photo;
 
     public User() {
