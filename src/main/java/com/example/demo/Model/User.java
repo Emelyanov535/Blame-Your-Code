@@ -2,6 +2,7 @@ package com.example.demo.Model;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "_user")
@@ -10,7 +11,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
+    @NotNull
     private String login;
+    @NotNull
     private String password;
     @Nullable
     private byte photo;
