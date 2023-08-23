@@ -2,6 +2,7 @@ package com.example.demo.Controller.DTO;
 
 import com.example.demo.Model.User;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
