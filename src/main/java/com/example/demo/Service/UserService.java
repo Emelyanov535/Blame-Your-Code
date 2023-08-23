@@ -3,12 +3,11 @@ package com.example.demo.Service;
 import com.example.demo.Model.User;
 import com.example.demo.Repository.UserRepository;
 import com.example.demo.Service.NotFoundException.UserNotFoundException;
-import org.springframework.expression.ExpressionException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Objects;
 import java.util.Optional;
+
+import static com.example.demo.Configuration.PasswordEncoderConfiguration.*;
 
 @Service
 public class UserService {
@@ -20,7 +19,7 @@ public class UserService {
 
     @Transactional
     public User createUser(String username, String login, String password, Byte photo){
-        final User user = new User(username, login, password, photo);
+        final User user = new User(username, login, hashPassword(password), photo);
         return userRepository.save(user);
     }
 
@@ -31,9 +30,9 @@ public class UserService {
     }
 
     @Transactional
-    public User checkUserByLoginAndPassword(String login, String password){
+    public User authorizeUser(String login, String password){
         User user = userRepository.findByLogin(login);
-        if (user != null && Objects.equals(user.getPassword(), password)) {
+        if (user != null && checkPassword(password, user.getPassword())) {
             return user;
         } else {
             // Обработка случая, когда пользователь не найден

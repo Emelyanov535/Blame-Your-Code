@@ -25,7 +25,7 @@ public class UserController {
     }
 
     @GetMapping("/{login}/{password}")
-    public UserDTO checkUserByLoginAndPassword(@PathVariable String login, @PathVariable String password){
-        return new UserDTO(userService.checkUserByLoginAndPassword(login, password));
+    public UserDTO authorizeUser(@PathVariable String login, @PathVariable String password){
+        return new UserDTO(userService.authorizeUser(login, password));
     }
 }

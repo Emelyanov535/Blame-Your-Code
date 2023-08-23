@@ -9,3 +9,9 @@ INSERT INTO "PUBLIC"."_USER"("ID","LOGIN","PASSWORD","PHOTO","USERNAME")VALUES(?
 2023-08-21 19:47:34 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: Объект уже закрыт
 The object is already closed [90007-214]
+2023-08-23 20:16:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Объект уже закрыт
+The object is already closed [90007-214]
+2023-08-23 20:49:17 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Объект уже закрыт
+The object is already closed [90007-214]
