@@ -10,7 +10,7 @@ version = 'BlameYourCode'
 jar {
 	manifest {
 		attributes(
-				'Main-Class': 'com.example.demo.BlameYourCodeApplication.main'
+				'Main-Class': 'com.example.demo.BlameYourCodeApplication'
 		)
 	}
 }
