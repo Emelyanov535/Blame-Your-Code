@@ -39,3 +39,7 @@ jar {
 		)
 	}
 }
+
+bootJar {
+	archiveClassifier = 'uber'
+}
