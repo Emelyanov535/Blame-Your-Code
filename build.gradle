@@ -2,10 +2,19 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.1.2'
 	id 'io.spring.dependency-management' version '1.1.2'
+	id 'war'
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
+
+war {
+	enabled = true
+}
+
+bootWar {
+	classifier('boot')
+}
 
 java {
 	sourceCompatibility = '17'
@@ -24,12 +33,9 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok:1.18.26'
 	annotationProcessor 'org.projectlombok:lombok:1.18.26'
 	implementation 'org.springframework.security:spring-security-crypto:6.0.2'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 }
-jar {
-	manifest {
-		attributes 'Main-Class': 'com.example.demo.BlameYourCodeApplication'
-	}
-}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
