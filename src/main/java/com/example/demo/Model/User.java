@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "_user")
 @Getter
@@ -21,6 +23,9 @@ public class User {
     private String password;
     @Nullable
     private byte photo;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private List<Post> posts;
 
     public User(String username, String login, String password, byte photo) {
         this.username = username;
