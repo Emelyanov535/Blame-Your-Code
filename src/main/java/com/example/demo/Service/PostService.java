@@ -8,6 +8,7 @@ import com.example.demo.Service.NotFoundException.UserNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,8 +26,9 @@ public class PostService {
     }
 
     @Transactional
-    public Post createPost(String language, String code, String title, String comment){
+    public Post createPost(String language, String code, String title, String comment, User user){
         final Post post = new Post(language, code, title, comment);
+        post.setUser(user);
         return postRepository.save(post);
     }
 
@@ -43,5 +45,10 @@ public class PostService {
     @Transactional
     public void deletePost(Long id){
         postRepository.delete(findPostById(id));
+    }
+
+    @Transactional
+    public List<Post> findPostsByLanguage(String language){
+        return postRepository.findAllByLanguage(language);
     }
 }
