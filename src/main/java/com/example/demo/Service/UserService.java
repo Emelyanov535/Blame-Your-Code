@@ -19,8 +19,13 @@ public class UserService {
 
     @Transactional
     public User createUser(String username, String login, String password, Byte photo){
-        final User user = new User(username, login, hashPassword(password), photo);
-        return userRepository.save(user);
+        if(userRepository.findByLogin(login) == null && userRepository.findByUsername(username) == null){
+            final User user = new User(username, login, hashPassword(password), photo);
+            return userRepository.save(user);
+        }else{
+            // Обработка случая, когда логин или имя пользователя не уникальны
+            return null;
+        }
     }
 
     @Transactional(readOnly = true)
