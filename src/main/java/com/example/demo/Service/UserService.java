@@ -18,9 +18,9 @@ public class UserService {
     }
 
     @Transactional
-    public User createUser(String username, String login, String password, Byte photo){
-        if(userRepository.findByLogin(login) == null && userRepository.findByUsername(username) == null){
-            final User user = new User(username, login, hashPassword(password), photo);
+    public User createUser(String name, String email, String password, Byte photo){
+        if(userRepository.findByEmail(email) == null && userRepository.findByName(name) == null){
+            final User user = new User(name, email, hashPassword(password), photo);
             return userRepository.save(user);
         }else{
             // Обработка случая, когда логин или имя пользователя не уникальны
@@ -35,8 +35,8 @@ public class UserService {
     }
 
     @Transactional
-    public User authorizeUser(String login, String password){
-        User user = userRepository.findByLogin(login);
+    public User authorizeUser(String email, String password){
+        User user = userRepository.findByEmail(email);
         if (user != null && checkPassword(password, user.getPassword())) {
             return user;
         } else {
