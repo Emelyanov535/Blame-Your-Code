@@ -1,7 +1,7 @@
 package com.example.demo.Service;
 
 import com.example.demo.Model.User;
-import com.example.demo.Repository.UserRepository;
+import com.example.demo.Repository.IUserRepository;
 import com.example.demo.Service.NotFoundException.UserNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,16 +11,21 @@ import static com.example.demo.Configuration.PasswordEncoderConfiguration.*;
 
 @Service
 public class UserService {
-    private final UserRepository userRepository;
+    private final IUserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(IUserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @Transactional
     public User createUser(String username, String login, String password, Byte photo){
-        final User user = new User(username, login, hashPassword(password), photo);
-        return userRepository.save(user);
+        if(userRepository.findByLogin(login) == null && userRepository.findByUsername(username) == null){
+            final User user = new User(username, login, hashPassword(password), photo);
+            return userRepository.save(user);
+        }else{
+            // Обработка случая, когда логин или имя пользователя не уникальны
+            return null;
+        }
     }
 
     @Transactional(readOnly = true)
