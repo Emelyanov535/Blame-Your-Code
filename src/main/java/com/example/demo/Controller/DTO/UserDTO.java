@@ -16,9 +16,9 @@ public class UserDTO {
     @JsonView({Details.class, AdminDetails.class})
     private long id;
     @JsonView({Details.class, AdminDetails.class})
-    private String username;
+    private String name;
     @JsonView({Details.class, AdminDetails.class})
-    private String login;
+    private String email;
     @JsonView(AdminDetails.class)
     private String password;
     @JsonView({Details.class, AdminDetails.class})
@@ -29,8 +29,8 @@ public class UserDTO {
 
     public UserDTO(User user) {
         this.id = user.getId();
-        this.username = user.getUsername();
-        this.login = user.getLogin();
+        this.name = user.getName();
+        this.email = user.getEmail();
         this.password = user.getPassword();
         this.photo = user.getPhoto();
     }

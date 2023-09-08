@@ -26,14 +26,13 @@ public class UserController {
 
     @PostMapping
     public MappingJacksonValue createUser(@RequestBody UserDTO userDTO){
-        UserDTO createdUserDTO = new UserDTO(userService.createUser(userDTO.getUsername(), userDTO.getLogin(), userDTO.getPassword(), userDTO.getPhoto()));
+        UserDTO createdUserDTO = new UserDTO(userService.createUser(userDTO.getName(), userDTO.getEmail(), userDTO.getPassword(), userDTO.getPhoto()));
 
         MappingJacksonValue response = new MappingJacksonValue(createdUserDTO);
         response.setSerializationView(UserDTO.Details.class);
 
         return response;
     }
-
 
     @GetMapping("/{login}/{password}")
     public MappingJacksonValue authorizeUser(@PathVariable String login, @PathVariable String password){
