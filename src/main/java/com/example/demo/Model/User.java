@@ -14,17 +14,17 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String username;
+    private String name;
     @NotNull
-    private String login;
+    private String email;
     @NotNull
     private String password;
     @Nullable
     private byte photo;
 
-    public User(String username, String login, String password, byte photo) {
-        this.username = username;
-        this.login = login;
+    public User(String name, String email, String password, byte photo) {
+        this.name = name;
+        this.email = email;
         this.password = password;
         this.photo = photo;
     }

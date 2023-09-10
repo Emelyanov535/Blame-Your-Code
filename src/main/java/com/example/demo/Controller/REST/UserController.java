@@ -21,11 +21,11 @@ public class UserController {
 
     @PostMapping
     public UserDTO createUser(@RequestBody UserDTO userDTO){
-        return new UserDTO(userService.createUser(userDTO.getUsername(), userDTO.getLogin(), userDTO.getPassword(), userDTO.getPhoto()));
+        return new UserDTO(userService.createUser(userDTO.getName(), userDTO.getEmail(), userDTO.getPassword(), userDTO.getPhoto()));
     }
 
     @GetMapping("/{login}/{password}")
-    public UserDTO authorizeUser(@PathVariable String login, @PathVariable String password){
-        return new UserDTO(userService.authorizeUser(login, password));
+    public UserDTO authorizeUser(@PathVariable String email, @PathVariable String password){
+        return new UserDTO(userService.authorizeUser(email, password));
     }
 }
