@@ -15,8 +15,11 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String language;
+    @Column(length = 5000)
     private String code;
+    @Column(length = 5000)
     private String title;
+    @Column(length = 5000)
     private String comment;
 
     @ManyToOne(fetch = FetchType.EAGER)
