@@ -1,9 +1,8 @@
 package com.example.demo.Controller.DTO;
 
 import com.example.demo.Model.User;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,19 +12,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UserDTO {
-    @JsonView({Details.class, AdminDetails.class})
     private long id;
-    @JsonView({Details.class, AdminDetails.class})
     private String name;
-    @JsonView({Details.class, AdminDetails.class})
     private String email;
-    @JsonView(AdminDetails.class)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
-    @JsonView({Details.class, AdminDetails.class})
     private Byte photo;
-
-    public interface Details{}
-    public interface AdminDetails{}
 
     public UserDTO(User user) {
         this.id = user.getId();
