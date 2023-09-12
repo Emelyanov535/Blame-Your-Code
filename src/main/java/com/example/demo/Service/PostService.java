@@ -20,6 +20,11 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
+    public List<Post> getAllPost(){
+        return postRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
     public Post findPostById(Long id){
         final Optional<Post> post = postRepository.findById(id);
         return post.orElseThrow(() -> new PostNotFoundException(id));

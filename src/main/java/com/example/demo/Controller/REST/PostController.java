@@ -18,6 +18,13 @@ public class PostController {
         this.userService = userService;
     }
 
+    @GetMapping
+    public List<PostDTO> getAllPost(){
+        return postService.getAllPost().stream()
+                .map(PostDTO :: new)
+                .toList();
+    }
+
     @GetMapping("/{id}")
     public PostDTO getPostById(@PathVariable Long id){
         return new PostDTO(postService.findPostById(id));
