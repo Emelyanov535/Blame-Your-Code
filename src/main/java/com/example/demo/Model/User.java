@@ -5,16 +5,19 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.Collection;
+
 @Entity
 @Table(name = "_user")
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String username;
     @NotNull
     private String email;
     @NotNull
@@ -22,10 +25,11 @@ public class User {
     @Nullable
     private byte photo;
 
-    public User(String name, String email, String password, byte photo) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.photo = photo;
-    }
+    @ManyToMany
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Collection<Role> roles;
 }

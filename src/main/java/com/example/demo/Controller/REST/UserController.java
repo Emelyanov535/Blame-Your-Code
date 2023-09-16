@@ -14,7 +14,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/{id}")
+/*    @GetMapping("/{id}")
     public UserDTO getUserById(@PathVariable Long id) {
         return new UserDTO(userService.findUser(id));
     }
@@ -27,5 +27,5 @@ public class UserController {
     @GetMapping("/{login}/{password}")
     public UserDTO authorizeUser(@PathVariable String email, @PathVariable String password){
         return new UserDTO(userService.authorizeUser(email, password));
-    }
+    }*/
 }
