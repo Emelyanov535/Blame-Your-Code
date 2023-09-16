@@ -1,5 +1,6 @@
 package ru.codingbros.blameyourcode.Security;
 
+import org.springframework.context.annotation.Configuration;
 import ru.codingbros.blameyourcode.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +18,8 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
+@EnableGlobalMethodSecurity(securedEnabled = true)
+@Configuration
 public class SecurityConfiguration {
     private final UserService userService;
 
@@ -25,6 +28,7 @@ public class SecurityConfiguration {
         return new BCryptPasswordEncoder();
     }
 
+    //Неправильно работает мэнеджер, в следствии чего контроллер createAuthToken совершает не верную проверку
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();

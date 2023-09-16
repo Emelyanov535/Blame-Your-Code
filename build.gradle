@@ -26,6 +26,7 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok:1.18.26'
 	annotationProcessor 'org.projectlombok:lombok:1.18.26'
 	implementation 'org.springframework.security:spring-security-crypto:6.0.2'
+	implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
 
 	//security
 	implementation "org.springframework.boot:spring-boot-starter-security"
