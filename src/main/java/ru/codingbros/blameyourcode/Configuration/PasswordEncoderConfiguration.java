@@ -1,4 +1,4 @@
-package com.example.demo.Configuration;
+package ru.codingbros.blameyourcode.Configuration;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;

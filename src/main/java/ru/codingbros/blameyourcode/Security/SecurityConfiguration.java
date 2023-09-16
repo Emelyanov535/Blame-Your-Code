@@ -1,6 +1,6 @@
-package com.example.demo.Security;
+package ru.codingbros.blameyourcode.Security;
 
-import com.example.demo.Service.UserService;
+import ru.codingbros.blameyourcode.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
@@ -14,8 +14,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
-
-import javax.naming.AuthenticationException;
 
 @EnableWebSecurity
 @RequiredArgsConstructor

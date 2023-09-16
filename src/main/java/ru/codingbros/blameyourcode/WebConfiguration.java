@@ -1,4 +1,4 @@
-package com.example.demo;
+package ru.codingbros.blameyourcode;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

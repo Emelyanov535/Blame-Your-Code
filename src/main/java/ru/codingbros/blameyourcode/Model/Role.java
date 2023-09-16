@@ -1,4 +1,4 @@
-package com.example.demo.Model;
+package ru.codingbros.blameyourcode.Model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

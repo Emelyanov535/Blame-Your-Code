@@ -1,4 +1,4 @@
-package com.example.demo.Service.NotFoundException;
+package ru.codingbros.blameyourcode.Service.NotFoundException;
 
 public class UserNotFoundException extends RuntimeException{
     public UserNotFoundException(Long id) {

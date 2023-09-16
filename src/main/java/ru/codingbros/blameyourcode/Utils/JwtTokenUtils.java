@@ -1,4 +1,4 @@
-package com.example.demo.Utils;
+package ru.codingbros.blameyourcode.Utils;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;

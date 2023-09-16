@@ -1,6 +1,6 @@
-package com.example.demo.Repository;
+package ru.codingbros.blameyourcode.Repository;
 
-import com.example.demo.Model.Role;
+import ru.codingbros.blameyourcode.Model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IRoleRepository extends JpaRepository<Role, Long> {

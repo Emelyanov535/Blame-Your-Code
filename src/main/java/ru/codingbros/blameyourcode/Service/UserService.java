@@ -1,19 +1,16 @@
-package com.example.demo.Service;
+package ru.codingbros.blameyourcode.Service;
 
-import com.example.demo.Model.User;
-import com.example.demo.Repository.IRoleRepository;
-import com.example.demo.Repository.UserRepository;
-import com.example.demo.Service.NotFoundException.UserNotFoundException;
+import ru.codingbros.blameyourcode.Model.User;
+import ru.codingbros.blameyourcode.Repository.IRoleRepository;
+import ru.codingbros.blameyourcode.Repository.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
-import static com.example.demo.Configuration.PasswordEncoderConfiguration.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {

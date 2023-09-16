@@ -1,8 +1,6 @@
-package com.example.demo.Controller.REST;
+package ru.codingbros.blameyourcode.Controller.REST;
 
-import com.example.demo.Controller.DTO.UserDTO;
-import com.example.demo.Model.User;
-import com.example.demo.Service.UserService;
+import ru.codingbros.blameyourcode.Service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
