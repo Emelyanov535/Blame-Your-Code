@@ -12,7 +12,6 @@ import java.util.Collection;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,4 +31,11 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Collection<Role> roles;
+
+    public User(String username, String email, String password, byte photo) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.photo = photo;
+    }
 }
