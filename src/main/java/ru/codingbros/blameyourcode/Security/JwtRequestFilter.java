@@ -16,8 +16,8 @@ import ru.codingbros.blameyourcode.Utils.JwtTokenUtils;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
 @Component
+@RequiredArgsConstructor
 public class JwtRequestFilter extends OncePerRequestFilter {
 
     private final JwtTokenUtils jwtTokenUtils;
