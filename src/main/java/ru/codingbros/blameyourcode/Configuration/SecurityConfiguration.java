@@ -1,10 +1,11 @@
-package ru.codingbros.blameyourcode.Security;
+package ru.codingbros.blameyourcode.Configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import ru.codingbros.blameyourcode.Utils.JwtRequestFilter;
 import ru.codingbros.blameyourcode.Service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
