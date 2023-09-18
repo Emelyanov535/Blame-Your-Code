@@ -1,10 +1,10 @@
 package ru.codingbros.blameyourcode.Controller.DTO;
 
-import ru.codingbros.blameyourcode.Model.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.codingbros.blameyourcode.Model.User;
 
 @Schema(description = "Информация о пользователе")
 @Getter

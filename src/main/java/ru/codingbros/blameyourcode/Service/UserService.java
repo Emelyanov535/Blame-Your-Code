@@ -33,7 +33,6 @@ public class UserService implements UserDetailsService {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtils jwtTokenUtils;
 
-
     @Transactional
     public User createUser(String username, String email, String password, String confirmPassword){
         if(Objects.equals(password, confirmPassword)){

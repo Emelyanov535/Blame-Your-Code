@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "_user")
@@ -31,6 +32,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Collection<Role> roles;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private List<Post> posts;
 
     public User(String username, String email, String password, byte photo) {
         this.username = username;
