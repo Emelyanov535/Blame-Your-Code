@@ -1,21 +1,20 @@
-package com.example.demo.Service;
+package ru.codingbros.blameyourcode.Service;
 
-import com.example.demo.Model.Post;
-import com.example.demo.Model.User;
-import com.example.demo.Repository.IPostRepository;
-import com.example.demo.Service.NotFoundException.PostNotFoundException;
-import com.example.demo.Service.NotFoundException.UserNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.codingbros.blameyourcode.Model.Post;
+import ru.codingbros.blameyourcode.Model.User;
+import ru.codingbros.blameyourcode.Repository.PostRepository;
+import ru.codingbros.blameyourcode.Service.NotFoundException.PostNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class PostService {
-    private final IPostRepository postRepository;
+    private final PostRepository postRepository;
 
-    public PostService(IPostRepository postRepository) {
+    public PostService(PostRepository postRepository) {
         this.postRepository = postRepository;
     }
 

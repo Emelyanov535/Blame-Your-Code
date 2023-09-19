@@ -1,9 +1,10 @@
-package com.example.demo.Controller.REST;
+package ru.codingbros.blameyourcode.Controller.REST;
 
-import com.example.demo.Controller.DTO.PostDTO;
-import com.example.demo.Service.PostService;
-import com.example.demo.Service.UserService;
+
 import org.springframework.web.bind.annotation.*;
+import ru.codingbros.blameyourcode.Controller.DTO.PostDTO;
+import ru.codingbros.blameyourcode.Service.PostService;
+import ru.codingbros.blameyourcode.Service.UserService;
 
 import java.util.List;
 

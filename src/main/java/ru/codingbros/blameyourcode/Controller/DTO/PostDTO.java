@@ -1,10 +1,10 @@
-package com.example.demo.Controller.DTO;
+package ru.codingbros.blameyourcode.Controller.DTO;
 
-import com.example.demo.Model.Post;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.codingbros.blameyourcode.Model.Post;
 
 @Schema(description = "Информация о посте")
 @Getter
