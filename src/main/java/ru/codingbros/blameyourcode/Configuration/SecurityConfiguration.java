@@ -55,8 +55,9 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
-                        auth -> auth.
-                                anyRequest().permitAll()
+                        auth -> auth
+                                .requestMatchers("/post/create").authenticated()
+                                .anyRequest().permitAll()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy((SessionCreationPolicy.STATELESS)))
                 .exceptionHandling(eH -> eH.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))

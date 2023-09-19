@@ -16,7 +16,6 @@ public class PostDTO {
     private String code;
     private String title;
     private String comment;
-    private Long userId;
 
     public PostDTO(Post post){
         this.id = post.getId();
@@ -24,6 +23,5 @@ public class PostDTO {
         this.code = post.getCode();
         this.title = post.getTitle();
         this.comment = post.getComment();
-        this.userId = post.getUser().getId();
     }
 }

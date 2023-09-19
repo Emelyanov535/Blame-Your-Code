@@ -1,10 +1,9 @@
 package ru.codingbros.blameyourcode.Controller.REST;
 
-
 import org.springframework.web.bind.annotation.*;
 import ru.codingbros.blameyourcode.Controller.DTO.PostDTO;
 import ru.codingbros.blameyourcode.Service.PostService;
-import ru.codingbros.blameyourcode.Service.UserService;
+import ru.codingbros.blameyourcode.Utils.JwtTokenUtils;
 
 import java.util.List;
 
@@ -12,14 +11,14 @@ import java.util.List;
 @RequestMapping("/post")
 public class PostController {
     private final PostService postService;
-    private final UserService userService;
+    private final JwtTokenUtils jwtTokenUtils;
 
-    public PostController(PostService postService, UserService userService) {
+    public PostController(PostService postService, JwtTokenUtils jwtTokenUtils) {
         this.postService = postService;
-        this.userService = userService;
+        this.jwtTokenUtils = jwtTokenUtils;
     }
 
-    @GetMapping
+    @GetMapping("/get")
     public List<PostDTO> getAllPost(){
         return postService.getAllPost().stream()
                 .map(PostDTO :: new)
@@ -31,9 +30,9 @@ public class PostController {
         return new PostDTO(postService.findPostById(id));
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public PostDTO createPost(@RequestBody PostDTO postDTO){
-        return new PostDTO(postService.createPost(postDTO.getLanguage(), postDTO.getCode(), postDTO.getTitle(), postDTO.getComment(), userService.findUser(postDTO.getUserId())));
+        return new PostDTO(postService.createPost(postDTO.getLanguage(), postDTO.getCode(), postDTO.getTitle(), postDTO.getComment()));
     }
 
     @GetMapping("/findByLanguage/{language}")
