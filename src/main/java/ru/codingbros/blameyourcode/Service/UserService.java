@@ -65,7 +65,8 @@ public class UserService implements UserDetailsService {
         } catch (BadCredentialsException ex) {
             return null;
         }
-        String token = jwtTokenUtils.generateToken(new CustomUserDetails(userRepository.findByEmail(authRequest.getEmail())));
-        return new JwtResponse(token);
+        CustomUserDetails customUserDetails = new CustomUserDetails(userRepository.findByEmail(authRequest.getEmail()));
+        String token = jwtTokenUtils.generateToken(customUserDetails);
+        return new JwtResponse(token, customUserDetails.getEmail(), customUserDetails.getUsername());
     }
 }
