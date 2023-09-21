@@ -4,6 +4,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.codingbros.blameyourcode.Model.Post;
+import ru.codingbros.blameyourcode.Model.User;
 import ru.codingbros.blameyourcode.Repository.PostRepository;
 import ru.codingbros.blameyourcode.Service.NotFoundException.PostNotFoundException;
 
@@ -33,9 +34,9 @@ public class PostService {
 
     @Transactional
     public Post createPost(String language, String code, String title, String comment){
-        Object[] principal = (Object[]) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User principalUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         final Post post = new Post(language, code, title, comment);
-        post.setUser(userService.findUser((Long) principal[0]));
+        post.setUser(userService.findUser(principalUser.getId()));
         return postRepository.save(post);
     }
 

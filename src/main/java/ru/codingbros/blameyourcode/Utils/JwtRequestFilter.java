@@ -27,26 +27,23 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authHeader = request.getHeader("Authorization");
-        String username = null;
-        String jwt;
-        Long id;
-        Object[] principal = new Object[2];
+        User user = new User();
         Collection<? extends GrantedAuthority> authorities = null;
         if(authHeader != null && authHeader.startsWith("Bearer ")){
-            jwt = authHeader.substring(7);
+            String jwt = authHeader.substring(7);
             try {
-                username = jwtTokenUtils.getUsername(jwt);
-                id = jwtTokenUtils.getUserId(jwt);
-                principal[0] = id;
-                principal[1] = username;
-                authorities = jwtTokenUtils.getRoles(jwt).stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+                String username = jwtTokenUtils.getUsername(jwt);
+                Long id = jwtTokenUtils.getUserId(jwt);
+                user.setId(id);
+                user.setUsername(username);
+                authorities = jwtTokenUtils.getRoles(jwt).stream().map(SimpleGrantedAuthority::new).toList();
             }catch (Exception ex){
                 //Ошибка
             }
         }
-        if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
+        if(user.getUsername() != null && SecurityContextHolder.getContext().getAuthentication() == null){
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                    principal,
+                    user,
                     null,
                     authorities
             );
