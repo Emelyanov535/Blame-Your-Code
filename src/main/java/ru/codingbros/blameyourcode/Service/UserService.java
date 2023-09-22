@@ -20,9 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.codingbros.blameyourcode.Service.NotFoundException.UserNotFoundException;
 import ru.codingbros.blameyourcode.Utils.JwtTokenUtils;
 
-import java.util.Collections;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -32,6 +30,7 @@ public class UserService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtils jwtTokenUtils;
+    private final Map<String, String> refreshStorage = new HashMap<>();
 
     @Transactional
     public User createUser(String username, String email, String password, String confirmPassword){
@@ -66,7 +65,9 @@ public class UserService implements UserDetailsService {
             return null;
         }
         CustomUserDetails customUserDetails = new CustomUserDetails(userRepository.findByEmail(authRequest.getEmail()));
-        String token = jwtTokenUtils.generateToken(customUserDetails);
-        return new JwtResponse(token, customUserDetails.getEmail(), customUserDetails.getUsername());
+        String AccessToken = jwtTokenUtils.generateAccessToken(customUserDetails);
+        String RefreshToken = jwtTokenUtils.generateRefreshToken(customUserDetails);
+        refreshStorage.put(customUserDetails.getEmail(), RefreshToken);
+        return new JwtResponse(AccessToken, RefreshToken, customUserDetails.getEmail(), customUserDetails.getUsername());
     }
 }

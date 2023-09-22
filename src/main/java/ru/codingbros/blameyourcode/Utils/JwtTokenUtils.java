@@ -16,13 +16,19 @@ import java.util.Map;
 
 @Component
 public class JwtTokenUtils {
-    @Value("${jwt.token.secret}")
-    private String secret;
+    @Value("${jwt.token.secret.access}")
+    private String secretAccess;
 
-    @Value("${jwt.token.lifetime}")
-    private Duration lifetime;
+    @Value("${jwt.token.secret.refresh}")
+    private String secretRefresh;
 
-    public String generateToken(CustomUserDetails user){
+    @Value("${jwt.token.lifetimeAccess}")
+    private Duration lifetimeAccess;
+
+    @Value("${jwt.token.lifetimeRefresh}")
+    private Duration lifetimeRefresh;
+
+    public String generateAccessToken(CustomUserDetails user){
         Map<String, Object> claims = new HashMap<>();
         List<String> rolesList = user.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority).toList();
@@ -31,24 +37,34 @@ public class JwtTokenUtils {
         claims.put("roles", rolesList);
 
         Date issuedDate = new Date();
-        Date expiredDate = new Date(issuedDate.getTime() + lifetime.toMillis());
+        Date expiredDate = new Date(issuedDate.getTime() + lifetimeAccess.toMillis());
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(user.getEmail())
                 .setIssuedAt(issuedDate)
                 .setExpiration(expiredDate)
-                .signWith(SignatureAlgorithm.HS256, secret)
+                .signWith(SignatureAlgorithm.HS256, secretAccess)
                 .compact();
     }
 
-    private Claims getClaimsFromToken(String token){
+    public String generateRefreshToken(CustomUserDetails user){
+        Date issuedDate = new Date();
+        Date expiredDate = new Date(issuedDate.getTime() + lifetimeAccess.toMillis() + lifetimeRefresh.toMillis());
+        return Jwts.builder()
+                .setSubject(user.getEmail())
+                .setExpiration(expiredDate)
+                .signWith(SignatureAlgorithm.HS256, secretRefresh)
+                .compact();
+    }
+
+    private Claims getClaimsFromToken(String token, String secret){
         return Jwts.parser()
                 .setSigningKey(secret)
                 .parseClaimsJws(token)
                 .getBody();
     }
 
-    public String getUsername(String token){
+/*    public String getUsername(String token){
         return getClaimsFromToken(token).getSubject();
     }
 
@@ -58,5 +74,5 @@ public class JwtTokenUtils {
 
     public Long getUserId(String token){
         return getClaimsFromToken(token).get("id", Long.class);
-    }
+    }*/
 }
