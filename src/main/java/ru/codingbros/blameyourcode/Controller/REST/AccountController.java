@@ -1,32 +1,40 @@
 package ru.codingbros.blameyourcode.Controller.REST;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 import ru.codingbros.blameyourcode.Controller.DTO.JwtRequest;
 import ru.codingbros.blameyourcode.Controller.DTO.RegistrationUserDTO;
 import ru.codingbros.blameyourcode.Controller.DTO.UserDTO;
 import ru.codingbros.blameyourcode.Service.UserService;
-import ru.codingbros.blameyourcode.Utils.JwtTokenUtils;
 
 @RestController
-public class AuthController {
+@RequestMapping("/api/Account")
+public class AccountController {
 
     private final UserService userService;
 
-    public AuthController(UserService userService, AuthenticationManager authenticationManager, JwtTokenUtils jwtTokenUtils) {
+    public AccountController(UserService userService) {
         this.userService = userService;
     }
 
-    @PostMapping("/auth")
+    @GetMapping("/Me")
+    public UserDTO getMe(){
+        return new UserDTO(userService.getUser());
+    }
+
+    @PostMapping("/SignIn")
     public ResponseEntity<?> createAuthToken(@RequestBody JwtRequest authRequest) {
         return ResponseEntity.ok(userService.getAuthToken(authRequest));
     }
 
-    @PostMapping("/registration")
+    @PostMapping("/SignUp")
     public UserDTO registrationUser(@RequestBody RegistrationUserDTO userDTO){
         return new UserDTO(userService.createUser(userDTO.getUsername(), userDTO.getEmail(), userDTO.getPassword(), userDTO.getConfirmPassword()));
+    }
+
+    @PutMapping("/Update")
+    public ResponseEntity<?> updateUser(@RequestBody UserDTO userDTO){
+        return ResponseEntity.ok(userService.updateUser(userDTO));
     }
 }

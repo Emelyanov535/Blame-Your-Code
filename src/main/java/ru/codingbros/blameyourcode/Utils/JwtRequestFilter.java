@@ -33,9 +33,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             String jwt = authHeader.substring(7);
             try {
                 String username = jwtTokenUtils.getUsername(jwt);
+                String email = jwtTokenUtils.getEmail(jwt);
                 Long id = jwtTokenUtils.getUserId(jwt);
                 user.setId(id);
                 user.setUsername(username);
+                user.setEmail(email);
                 authorities = jwtTokenUtils.getRoles(jwt).stream().map(SimpleGrantedAuthority::new).toList();
             }catch (Exception ex){
                 //Ошибка
