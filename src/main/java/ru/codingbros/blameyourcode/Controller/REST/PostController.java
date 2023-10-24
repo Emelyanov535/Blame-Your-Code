@@ -33,7 +33,7 @@ public class PostController {
         return new PostDTO(postService.createPost(postDTO.getLanguage(), postDTO.getCode(), postDTO.getTitle(), postDTO.getComment()));
     }
 
-    @GetMapping("/{language}")
+    @GetMapping("/Filter/{language}")
     public List<PostDTO> findPostsByLanguage(@PathVariable String language){
         return postService.findPostsByLanguage(language).stream()
                 .map(PostDTO :: new)
