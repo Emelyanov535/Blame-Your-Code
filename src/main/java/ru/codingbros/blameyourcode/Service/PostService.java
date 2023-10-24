@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.codingbros.blameyourcode.Controller.DTO.PostDTO;
 import ru.codingbros.blameyourcode.Controller.DTO.UserDTO;
+import ru.codingbros.blameyourcode.Model.Comment;
 import ru.codingbros.blameyourcode.Model.Post;
 import ru.codingbros.blameyourcode.Model.User;
 import ru.codingbros.blameyourcode.Repository.PostRepository;
@@ -75,5 +76,11 @@ public class PostService {
             }
             postRepository.save(post);
         }
+    }
+
+    @Transactional
+    public List<Comment> getPostComments(Long id){
+        Post post = findPostById(id);
+        return post.getComments();
     }
 }

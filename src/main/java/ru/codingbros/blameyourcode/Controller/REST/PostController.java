@@ -2,6 +2,7 @@ package ru.codingbros.blameyourcode.Controller.REST;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.codingbros.blameyourcode.Controller.DTO.CommentDTO;
 import ru.codingbros.blameyourcode.Controller.DTO.PostDTO;
 import ru.codingbros.blameyourcode.Service.PostService;
 
@@ -48,5 +49,12 @@ public class PostController {
     @PutMapping("/Update")
     public void updatePost(@RequestBody PostDTO postDTO){
         postService.updatePost(postDTO);
+    }
+
+    @GetMapping("/GetComments/{id}")
+    public List<CommentDTO> getPostComments(Long id){
+        return postService.getPostComments(id).stream()
+                .map(CommentDTO :: new)
+                .toList();
     }
 }
