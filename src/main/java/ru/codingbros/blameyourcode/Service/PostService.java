@@ -3,12 +3,15 @@ package ru.codingbros.blameyourcode.Service;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.codingbros.blameyourcode.Controller.DTO.PostDTO;
+import ru.codingbros.blameyourcode.Controller.DTO.UserDTO;
 import ru.codingbros.blameyourcode.Model.Post;
 import ru.codingbros.blameyourcode.Model.User;
 import ru.codingbros.blameyourcode.Repository.PostRepository;
 import ru.codingbros.blameyourcode.Service.NotFoundException.PostNotFoundException;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -41,22 +44,36 @@ public class PostService {
     }
 
     @Transactional
-    public Post updatePost(Long id, String language, String code, String title, String comment){
-        final Post currentPost = findPostById(id);
-        currentPost.setLanguage(language);
-        currentPost.setCode(code);
-        currentPost.setTitle(title);
-        currentPost.setComment(comment);
-        return postRepository.save(currentPost);
-    }
-
-    @Transactional
     public void deletePost(Long id){
-        postRepository.delete(findPostById(id));
+        User principalUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(Objects.equals(principalUser.getId(), findPostById(id).getUser().getId())){
+            postRepository.delete(findPostById(id));
+        }
     }
 
     @Transactional
     public List<Post> findPostsByLanguage(String language){
         return postRepository.findAllByLanguage(language);
+    }
+
+    @Transactional
+    public void updatePost(PostDTO postDTO){
+        User principalUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(Objects.equals(principalUser.getId(), findPostById(postDTO.getId()).getUser().getId())){
+            Post post = findPostById(postDTO.getId());
+            if(postDTO.getCode() != null){
+                post.setCode(postDTO.getCode());
+            }
+            if(postDTO.getComment() != null){
+                post.setComment(postDTO.getComment());
+            }
+            if(postDTO.getLanguage() != null){
+                post.setLanguage(postDTO.getLanguage());
+            }
+            if(postDTO.getTitle() != null){
+                post.setTitle(postDTO.getTitle());
+            }
+            postRepository.save(post);
+        }
     }
 }
