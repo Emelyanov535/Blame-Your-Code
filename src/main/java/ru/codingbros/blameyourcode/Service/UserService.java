@@ -69,7 +69,7 @@ public class UserService implements UserDetailsService {
         }
         CustomUserDetails customUserDetails = new CustomUserDetails(userRepository.findByEmail(authRequest.getEmail()));
         String token = jwtTokenUtils.generateToken(customUserDetails);
-        return new JwtResponse(token, customUserDetails.getEmail(), customUserDetails.getUsername());
+        return new JwtResponse(token);
     }
 
     public User getUser(){
