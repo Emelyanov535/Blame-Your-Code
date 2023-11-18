@@ -1,9 +1,11 @@
 package ru.codingbros.blameyourcode.Controller.REST;
 
+import org.postgresql.util.PSQLException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.codingbros.blameyourcode.Controller.DTO.JwtRequest;
+import ru.codingbros.blameyourcode.Controller.DTO.JwtResponse;
 import ru.codingbros.blameyourcode.Controller.DTO.RegistrationUserDTO;
 import ru.codingbros.blameyourcode.Controller.DTO.UserDTO;
 import ru.codingbros.blameyourcode.Service.UserService;
@@ -24,12 +26,12 @@ public class AccountController {
     }
 
     @PostMapping("/SignIn")
-    public ResponseEntity<?> createAuthToken(@RequestBody JwtRequest authRequest) {
-        return ResponseEntity.ok(userService.getAuthToken(authRequest));
+    public JwtResponse createAuthToken(@RequestBody JwtRequest authRequest) {
+        return userService.getAuthToken(authRequest);
     }
 
     @PostMapping("/SignUp")
-    public UserDTO registrationUser(@RequestBody RegistrationUserDTO userDTO){
+    public UserDTO registrationUser(@RequestBody RegistrationUserDTO userDTO) {
         return new UserDTO(userService.createUser(userDTO.getUsername(), userDTO.getEmail(), userDTO.getPassword(), userDTO.getConfirmPassword()));
     }
 
