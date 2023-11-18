@@ -1,6 +1,6 @@
 HELP.md
 .gradle
-build/
+*.jar filter=lfs diff=lfs merge=lfs -text
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
