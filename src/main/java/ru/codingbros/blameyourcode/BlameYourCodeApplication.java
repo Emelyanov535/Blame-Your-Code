@@ -10,3 +10,4 @@ public class BlameYourCodeApplication {
 		SpringApplication.run(BlameYourCodeApplication.class, args);
 	}
 }
+
