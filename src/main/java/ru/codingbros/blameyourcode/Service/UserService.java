@@ -1,6 +1,10 @@
 package ru.codingbros.blameyourcode.Service;
 
 import lombok.AllArgsConstructor;
+import org.apache.catalina.filters.ExpiresFilter;
+import org.postgresql.util.PSQLException;
+import org.postgresql.util.ServerErrorMessage;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.codingbros.blameyourcode.Service.NotFoundException.UserNotFoundException;
 import ru.codingbros.blameyourcode.Utils.JwtTokenUtils;
 
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Optional;
@@ -43,7 +48,7 @@ public class UserService implements UserDetailsService {
             user.setRoles(Collections.singleton(userRole));
             return userRepository.save(user);
         }else{
-            return null; //Обработка ошибки
+            return null;
         }
     }
 
@@ -65,7 +70,7 @@ public class UserService implements UserDetailsService {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
         } catch (BadCredentialsException ex) {
-            return null;
+            throw new BadCredentialsException("Неккоректные данные");
         }
         CustomUserDetails customUserDetails = new CustomUserDetails(userRepository.findByEmail(authRequest.getEmail()));
         String token = jwtTokenUtils.generateToken(customUserDetails);
