@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "_post")
 @Getter
@@ -25,6 +27,9 @@ public class Post {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "post")
+    private List<Comment> comments;
 
     public Post(String language, String code, String title, String comment){
         this.language = language;

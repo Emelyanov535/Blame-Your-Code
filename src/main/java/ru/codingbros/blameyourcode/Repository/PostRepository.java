@@ -1,6 +1,7 @@
 package ru.codingbros.blameyourcode.Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import ru.codingbros.blameyourcode.Model.Comment;
 import ru.codingbros.blameyourcode.Model.Post;
 
 import java.util.List;
