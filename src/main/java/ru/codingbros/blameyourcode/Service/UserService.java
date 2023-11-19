@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.codingbros.blameyourcode.Controller.DTO.JwtRequest;
 import ru.codingbros.blameyourcode.Controller.DTO.JwtResponse;
+import ru.codingbros.blameyourcode.Controller.DTO.UserDTO;
 import ru.codingbros.blameyourcode.Model.CustomUserDetails;
 import ru.codingbros.blameyourcode.Model.Role;
 import ru.codingbros.blameyourcode.Model.User;
@@ -67,6 +69,27 @@ public class UserService implements UserDetailsService {
         }
         CustomUserDetails customUserDetails = new CustomUserDetails(userRepository.findByEmail(authRequest.getEmail()));
         String token = jwtTokenUtils.generateToken(customUserDetails);
-        return new JwtResponse(token, customUserDetails.getEmail(), customUserDetails.getUsername());
+        return new JwtResponse(token);
+    }
+
+    public User getUser(){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return user;
+    }
+
+    @Transactional
+    public User updateUser(UserDTO userDTO){
+        User userPrincipal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = findUser(userPrincipal.getId());
+        if (userDTO.getUsername() != null) {
+            user.setUsername(userDTO.getUsername());
+        }
+        if (userDTO.getEmail() != null) {
+            user.setEmail(userDTO.getEmail());
+        }
+        if (userDTO.getPassword() != null) {
+            user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        }
+        return userRepository.save(user);
     }
 }

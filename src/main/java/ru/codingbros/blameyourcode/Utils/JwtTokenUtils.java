@@ -48,9 +48,11 @@ public class JwtTokenUtils {
                 .getBody();
     }
 
-    public String getUsername(String token){
+    public String getEmail(String token){
         return getClaimsFromToken(token).getSubject();
     }
+
+    public String getUsername(String token){return getClaimsFromToken(token).get("username", String.class);}
 
     public List<String> getRoles(String token){
         return getClaimsFromToken(token).get("roles", List.class);
