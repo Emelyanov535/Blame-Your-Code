@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blame Your Code</title>
+    <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: 'Arial', sans-serif;
+      color: #fff;
+    }
+
+    .gradient-text {
+      background: linear-gradient(to right, #FFD700, #FF8C00, #FF0000);
+      background-size: 200% 100%;
+      color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: gradientAnimation 5s linear infinite;
+      font-size: 3em;
+      letter-spacing: 4px;
+    }
+
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 200% 0;
+      }
+      100% {
+        background-position: -200% 0;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="gradient-text">Blame Your Code</div>
+</body>
+</html>
